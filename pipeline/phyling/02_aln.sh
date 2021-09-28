@@ -1,5 +1,5 @@
 #!/usr/bin/bash -l
-#SBATCH --ntasks 96 --mem 64G --time 2:00:00 -p short -N 1 --out logs/03_aln_step.%A.log -C xeon
+#SBATCH --ntasks 96 --mem 64G --time 2:00:00 -p short -N 1 --out logs/02_aln_step.%A.log -C xeon
 module unload perl
 module unload python
 module load parallel
@@ -7,6 +7,8 @@ module load hmmer/3
 module unload miniconda2
 module load miniconda3
 module load workspace/scratch
+
+pushd Phylogeny
 
 # if you don't have $SCRATCH variable on system then ser it to /tmp or other equivalent
 if [ ! -f config.txt ]; then

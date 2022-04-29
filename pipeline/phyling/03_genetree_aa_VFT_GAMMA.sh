@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH -N 1 -n 8 --mem 24gb --out logs/gene_tree_VFT.%a.log -p short -C xeon
+#SBATCH -N 1 -n 16 --mem 24gb --out logs/gene_tree_VFT.%a.log -p short -C xeon
 
 module load veryfasttree
 pushd Phylogeny
@@ -46,5 +46,5 @@ if [ ! -s $OUTDIR/$base.VFT_LG.tre ]; then
 	VeryFastTree.AVX2 -threads $CPU -lg -gamma -mllen -log $OUTDIR/$base.VFT_LG_topology.log < $OUTDIR/$OUTPHY > $OUTDIR/$base.VFT_LG.tre
 fi
 if [ ! -s $OUTDIR/$base.VFT_JTT.tre ]; then
-	VertFastTree.AVX2 -threads $CPU -gamma -mllen -log $OUTDIR/$base.VFT_JTT_topology.log  < $OUTDIR/$OUTPHY > $OUTDIR/$base.VFT_JTT.tre
+	VeryFastTree.AVX2 -threads $CPU -gamma -mllen -log $OUTDIR/$base.VFT_JTT_topology.log  < $OUTDIR/$OUTPHY > $OUTDIR/$base.VFT_JTT.tre
 fi

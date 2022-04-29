@@ -1,15 +1,13 @@
 #!/usr/bin/bash
-#SBATCH -p batch,intel -N 1 -n 24 --mem 128gb --out logs/ASTRAL.%A.log
+#SBATCH -p gpu --mem=48g --gres=gpu:4 -N 1 -n 16 --time 72:00:00 --out logs/ASTRAL_MP_GPU.%A.log
 
 CPU=$SLURM_CPUS_ON_NODE
 if [ -z $CPUS ]; then
     CPU=1
 fi
-MEM=128G
-
+MEM=48G
+module load java/8
 module load ASTRAL/5.15.4
-module unload miniconda2
-module load miniconda3
 INDIR=gene_trees
 OUTDIR=gene_trees_coalescent
 PREF=1KFG
@@ -20,7 +18,7 @@ for type in FT_WAG FT_LG FT_JTT VFT_WAG VFT_LG VFT_JTT; do
 	cat $INDIR/*.$type.tre > $OUTDIR/$type.trees
     fi
     if [ ! -s $OUTDIR/$PREF.$type.ASTRAL.tre ]; then
-  java -Xmx24G -D"java.library.path=$ASTRALDIR/lib" -jar $ASTRALJAR  -T $CPU -i $OUTDIR/$type.trees -o $OUTDIR/$PREF.$type.ASTRAL_MP.tre
+  	java -Xmx${MEM} -D"java.library.path=$ASTRALDIR/lib" -jar $ASTRALJAR  -T $CPU -i $OUTDIR/$type.trees -o $OUTDIR/$PREF.$type.ASTRAL_MP.tre
     fi
 done
 

@@ -1,11 +1,8 @@
 #!/usr/bin/bash -l
 #SBATCH --ntasks 2 --mem 8G --time 2:00:00 -p short -N 1 --out logs/phyling_init.log
-module unload perl
-module unload python
 module load parallel
-module load hmmer/3
-module unload miniconda2
 module load miniconda3
+conda activate /bigdata/stajichlab/shared/condaenv/phyling
 pushd Phylogeny
 
 if [ ! -f config.txt ]; then

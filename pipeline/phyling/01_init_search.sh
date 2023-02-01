@@ -22,4 +22,3 @@ echo " I will remove prefix.tab to make sure it is regenerated"
 rm -f prefix.tab
 ../PHYling_unified/PHYling init
 ../PHYling_unified/PHYling search -q slurm
-#../PHYling_unified/PHYling search -q parallel

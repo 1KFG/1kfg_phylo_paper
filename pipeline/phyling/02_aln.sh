@@ -19,6 +19,7 @@ if [ ! -z $PREFIX ]; then
 	echo "rm -rf aln/$PREFIX"
 fi
 # probably should check to see if allseq is newer than newest file in the folder?
+
 if [ ! -s pep/allseq.ssi ]; then
 	cat pep/*.aa.fasta > $SCRATCH/allseq
 	esl-sfetch --index $SCRATCH/allseq
